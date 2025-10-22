@@ -106,7 +106,6 @@
         txtCantidad.Text = Integer.Parse(row.Cells(7).Text).ToString()
 
         editando.Value = id
-
     End Sub
 End Class
 
