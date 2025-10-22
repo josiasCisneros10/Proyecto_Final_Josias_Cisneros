@@ -31,3 +31,4 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Proyecto_FinalConnectionString %>" SelectCommand="SELECT * FROM [Producto]"></asp:SqlDataSource>
 </asp:Content>
+
