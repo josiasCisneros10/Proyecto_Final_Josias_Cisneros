@@ -1,4 +1,6 @@
-﻿Public Class FormProducto
+﻿Imports Proyecto_Final_Josias_Cisneros.Utils
+
+Public Class FormProducto
     Inherits System.Web.UI.Page
     Public producto As New Producto()
     Protected dbProducto As New dbProducto
@@ -8,6 +10,12 @@
     End Sub
 
     Protected Sub btn_guardar(sender As Object, e As EventArgs)
+
+        If txtTipoProducto.Text = "" Or txtMarca.Text = "" Or TxtModelo.Text = "" Or txtPrecio.Text = "" Or txtCantidad.Text = "" Then
+            ShowSwalError(Me, "Debe completar todos los campos")
+            Return
+        End If
+
         Dim producto As New Producto()
         producto.TipoProducto = txtTipoProducto.Text
         producto.Marca = txtMarca.Text
@@ -16,42 +24,100 @@
         Try
             producto.Precio = Convert.ToDecimal(txtPrecio.Text)
             producto.Cantidad = Convert.ToInt32(txtCantidad.Text)
+
+            If producto.Precio < 0 Or producto.Cantidad < 0 Then
+                lblMensaje.Text = "Precio y cantidad no pueden ser negativos"
+                lblMensaje.CssClass = "alert alert-danger"
+                Return
+            End If
+
         Catch ex As Exception
+            ShowSwalError(Me, "Error en los valores numéricos: " & ex.Message)
             lblMensaje.Text = "Error en los valores numéricos: " & ex.Message
-            Exit Sub
+            lblMensaje.CssClass = "alert alert-danger"
+            Return
         End Try
 
         If dbProducto.create(producto) Then
-            lblMensaje.Text = "Producto guardado correctamente."
-            gvProducto.DataBind()
+            ShowSwal(Me, "Producto guardado correctamente")
+            lblMensaje.Text = "Producto guardado correctamente"
+            lblMensaje.CssClass = "alert alert-success"
+
+
+            txtTipoProducto.Text = ""
+            txtMarca.Text = ""
+            TxtModelo.Text = ""
+            txtPrecio.Text = ""
+            txtCantidad.Text = ""
         Else
-            lblMensaje.Text = "Error al guardar producto."
+            ShowSwalError(Me, "Error al guardar producto")
+            lblMensaje.Text = "Error al guardar producto"
+            lblMensaje.CssClass = "alert alert-danger"
         End If
+
+        gvProducto.DataBind()
     End Sub
 
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs)
-        Dim producto As New Producto()
 
-        producto.TipoProducto = txtTipoProducto.Text
-        producto.Marca = txtMarca.Text
-        producto.Modelo = TxtModelo.Text
+        If txtTipoProducto.Text = "" Or txtMarca.Text = "" Or TxtModelo.Text = "" Or txtPrecio.Text = "" Or txtCantidad.Text = "" Then
+            ShowSwalError(Me, "Debe completar todos los campos")
+            Return
+        End If
+
+        Dim producto As Producto = New Producto With {
+        .TipoProducto = txtTipoProducto.Text,
+        .Marca = txtMarca.Text,
+        .Modelo = TxtModelo.Text,
+        .IdProducto = Convert.ToInt32(editando.Value)
+    }
 
         Try
             producto.Precio = Convert.ToDecimal(txtPrecio.Text)
             producto.Cantidad = Convert.ToInt32(txtCantidad.Text)
+
+            If producto.Precio < 0 Or producto.Cantidad < 0 Then
+                lblMensaje.Text = "Precio y cantidad no pueden ser negativos"
+                lblMensaje.CssClass = "alert alert-danger"
+                Return
+            End If
+
         Catch ex As Exception
+            ShowSwalError(Me, "Error en los valores numéricos: " & ex.Message)
             lblMensaje.Text = "Error en los valores numéricos: " & ex.Message
-            Exit Sub
+            lblMensaje.CssClass = "alert alert-danger"
+            Return
         End Try
 
-        producto.IdProducto = Convert.ToInt32(editando.Value)
-
         Dim resultado As String = dbProducto.update(producto)
-        lblMensaje.Text = resultado
+
+        If resultado.Contains("Error") Then
+            ShowSwalError(Me, resultado)
+            lblMensaje.Text = resultado
+            lblMensaje.CssClass = "alert alert-danger"
+            Return
+        Else
+            ShowSwal(Me, resultado)
+            lblMensaje.Text = resultado
+            lblMensaje.CssClass = "alert alert-success"
+        End If
+
         gvProducto.DataBind()
         gvProducto.EditIndex = -1
+        LimpiarCampos()
     End Sub
 
+    Protected Sub LimpiarCampos()
+        btnActualizar.Visible = False
+        btnGuardar.Visible = True
+        btnCancelar.Visible = False
+
+        txtTipoProducto.Text = ""
+        txtMarca.Text = ""
+        TxtModelo.Text = ""
+        txtPrecio.Text = ""
+        txtCantidad.Text = ""
+    End Sub
 
     Protected Sub gvProducto_RowDeleting(sender As Object, e As GridViewDeleteEventArgs)
         Try
@@ -106,6 +172,10 @@
         txtCantidad.Text = Integer.Parse(row.Cells(7).Text).ToString()
 
         editando.Value = id
+    End Sub
+
+    Protected Sub btnCancelar_Click(sender As Object, e As EventArgs)
+        LimpiarCampos()
     End Sub
 End Class
 

@@ -15,7 +15,9 @@
     <asp:TextBox ID="txtCantidad" CssClass="form-control" placeholder="Cantidad" runat="server"></asp:TextBox>
     
     <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-primary btn-hover-move" Text="Guardar" OnClick="btn_guardar" />
+    
     <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-primary btn-hover-move" Text="Actualizar" OnClick="btnActualizar_Click" />
+    <asp:Button ID="btnCancelar" runat="server" Visible="false" CssClass="btn btn-danger btn-hover-move" Text="Cancelar" OnClick="btnCancelar_Click"/>
     <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
     </div>
 

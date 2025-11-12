@@ -86,6 +86,15 @@ Partial Public Class FormProducto
     Protected WithEvents btnActualizar As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''btnCancelar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCancelar As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''lblMensaje control.
     '''</summary>
     '''<remarks>
