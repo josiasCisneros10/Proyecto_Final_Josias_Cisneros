@@ -2,19 +2,22 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <main aria-labelledby="title">
-        <h2 id="title"><%: Title %></h2>
-        <p>Your contact page.</p>
+    <h2 id="title"><%: Title %></h2>
+   
+    <div class="mb-3">
+        <strong>Address:</strong><br />
+        Avenida Central, Desamparados, Alajuela, Costa Rica
+    </div>
 
-        <address>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399<br />
-            <abbr title="Phone">P:</abbr>
-            425.555.0100
-        </address>
+    <div class="mb-3">
+        <strong>Phone:</strong><br />
+        +506 7356-8212
+    </div>
 
-        <address>
-            <strong>Support:</strong><a href="mailto:Support@example.com">Support@example.com</a><br />
-            <strong>Marketing:</strong><a href="mailto:Marketing@example.com">Marketing@example.com</a>
-        </address>
-    </main>
+    <div class="mb-3">
+        <strong>Email:</strong><br />
+        Support: <a href="mailto:support@xtechnology.com">support@xtechnology.com</a><br />
+        Marketing: <a href="mailto:marketing@xtechnology.com">marketing@xtechnology.com</a>
+    </div>
+</main>
 </asp:Content>

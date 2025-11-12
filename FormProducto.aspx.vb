@@ -43,7 +43,6 @@ Public Class FormProducto
             lblMensaje.Text = "Producto guardado correctamente"
             lblMensaje.CssClass = "alert alert-success"
 
-
             txtTipoProducto.Text = ""
             txtMarca.Text = ""
             TxtModelo.Text = ""
@@ -54,7 +53,6 @@ Public Class FormProducto
             lblMensaje.Text = "Error al guardar producto"
             lblMensaje.CssClass = "alert alert-danger"
         End If
-
         gvProducto.DataBind()
     End Sub
 
@@ -71,7 +69,6 @@ Public Class FormProducto
         .Modelo = TxtModelo.Text,
         .IdProducto = Convert.ToInt32(editando.Value)
     }
-
         Try
             producto.Precio = Convert.ToDecimal(txtPrecio.Text)
             producto.Cantidad = Convert.ToInt32(txtCantidad.Text)
@@ -90,7 +87,6 @@ Public Class FormProducto
         End Try
 
         Dim resultado As String = dbProducto.update(producto)
-
         If resultado.Contains("Error") Then
             ShowSwalError(Me, resultado)
             lblMensaje.Text = resultado
@@ -136,28 +132,36 @@ Public Class FormProducto
     End Sub
 
     Protected Sub gvProducto_RowUpdating(sender As Object, e As GridViewUpdateEventArgs)
+        e.Cancel = True
         Dim id As Integer = Convert.ToInt32(gvProducto.DataKeys(e.RowIndex).Value)
-        Dim producto As New Producto()
-
+        Dim producto As Producto = New Producto With {
+        .TipoProducto = e.NewValues("TipoProducto"),
+        .Marca = e.NewValues("Marca"),
+        .Modelo = e.NewValues("Modelo"),
+        .IdProducto = id
+    }
         Try
-            producto.TipoProducto = e.NewValues("TipoProducto")
-            producto.Marca = e.NewValues("Marca")
-            producto.Modelo = e.NewValues("Modelo")
             producto.Precio = Convert.ToDecimal(e.NewValues("Precio"))
             producto.Cantidad = Convert.ToInt32(e.NewValues("Cantidad"))
-            producto.IdProducto = id
         Catch ex As Exception
-            lblMensaje.Text = "Error al actualizar: " & ex.Message
-            e.Cancel = True
-            gvProducto.EditIndex = -1
+            ShowSwalError(Me, "Error al actualizar: " & ex.Message)
             Return
         End Try
+
         Dim resultado As String = dbProducto.update(producto)
-        lblMensaje.Text = resultado
+        If resultado.Contains("Error") Then
+            ShowSwalError(Me, resultado)
+            Return
+        Else
+            ShowSwal(Me, resultado)
+        End If
+
         gvProducto.DataBind()
-        e.Cancel = True
         gvProducto.EditIndex = -1
+        btnGuardar.Visible = True
     End Sub
+
+
 
     Protected Sub gvProducto_SelectedIndexChanged(sender As Object, e As EventArgs)
         Dim row As GridViewRow = gvProducto.SelectedRow()
@@ -167,12 +171,16 @@ Public Class FormProducto
         txtTipoProducto.Text = row.Cells(3).Text
         txtMarca.Text = row.Cells(4).Text
         TxtModelo.Text = row.Cells(5).Text
-
         txtPrecio.Text = Decimal.Parse(row.Cells(6).Text).ToString("F2")
         txtCantidad.Text = Integer.Parse(row.Cells(7).Text).ToString()
 
         editando.Value = id
+
+        btnActualizar.Visible = True
+        btnGuardar.Visible = False
+        btnCancelar.Visible = True
     End Sub
+
 
     Protected Sub btnCancelar_Click(sender As Object, e As EventArgs)
         LimpiarCampos()

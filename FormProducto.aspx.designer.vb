@@ -32,6 +32,15 @@ Partial Public Class FormProducto
     Protected WithEvents txtTipoProducto As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''rfvTipoProducto control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfvTipoProducto As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''txtMarca control.
     '''</summary>
     '''<remarks>
@@ -39,6 +48,15 @@ Partial Public Class FormProducto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtMarca As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''rfvMarca control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfvMarca As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''TxtModelo control.
@@ -50,6 +68,15 @@ Partial Public Class FormProducto
     Protected WithEvents TxtModelo As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''rfvModelo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfvModelo As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''txtPrecio control.
     '''</summary>
     '''<remarks>
@@ -59,6 +86,15 @@ Partial Public Class FormProducto
     Protected WithEvents txtPrecio As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''rfvPrecio control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfvPrecio As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''txtCantidad control.
     '''</summary>
     '''<remarks>
@@ -66,6 +102,15 @@ Partial Public Class FormProducto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtCantidad As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''rfvCantidad control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rfvCantidad As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''btnGuardar control.
@@ -102,6 +147,15 @@ Partial Public Class FormProducto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMensaje As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''vsProducto control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vsProducto As Global.System.Web.UI.WebControls.ValidationSummary
 
     '''<summary>
     '''gvProducto control.
