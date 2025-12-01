@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="es">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,16 +12,17 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <!-- Tema Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css" />
 
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body>
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
+                <%-- Framework Scripts --%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
@@ -33,26 +34,89 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">XTechnology</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                <asp:HyperLink ID="hlBrand" runat="server" CssClass="navbar-brand"
+                    NavigateUrl="~/Home.aspx" Text="XTechnology" />
+
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse" title="Toggle navigation"
+                    aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
+
+                        <% If Not autenticado Then %>
+                        <!-- Menú para NO autenticados -->
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlRegistro" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/Registro.aspx" Text="Registro" />
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlLogin" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/Login.aspx" Text="Login" />
+                        </li>
+                        <% End If %>
+
+                        <!-- Solo visible si es Admin  -->
+                        <li class="nav-item" id="liAdmin" runat="server">
+                            <asp:HyperLink ID="hlAdmin" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/Admin.aspx" Text="Admin" />
+                        </li>
+
+                        <% If autenticado Then %>
+
+                        <!-- Catálogo: solo usuario normal  -->
+                        <li class="nav-item" id="liCatalogo" runat="server">
+                            <asp:HyperLink ID="hlCatalogo" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/Catalogo.aspx" Text="Catálogo" />
+                        </li>
+
+                        <!-- Carrito: solo usuario normal  -->
+                        <li class="nav-item" id="liCarrito" runat="server">
+                            <asp:HyperLink ID="hlCarrito" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/Carrito.aspx" Text="Carrito de compras" />
+                        </li>
+
+                        <!-- Productos: solo admin -->
+                        <li class="nav-item" id="liProductos" runat="server">
+                            <asp:HyperLink ID="hlProductos" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/FormProducto.aspx" Text="Productos" />
+                        </li>
+
+                        <!-- Clientes: solo admin -->
+                        <li class="nav-item" id="liClientes" runat="server">
+                            <asp:HyperLink ID="hlClientes" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/FormCliente.aspx" Text="Clientes" />
+                        </li>
+
+                        <!-- Pedidos: solo admin -->
+                        <li class="nav-item" id="liPedidos" runat="server">
+                            <asp:HyperLink ID="hlPedidos" runat="server" CssClass="nav-link"
+                                NavigateUrl="~/FormPedido.aspx" Text="Pedidos" />
+                        </li>
+
+                        <!-- Cerrar sesión: cualquier autenticado -->
+                        <li class="nav-item">
+                            <asp:LinkButton ID="btnLogOut" runat="server"
+                                CssClass="nav-link btn btn-danger btn-sm ms-2"
+                                OnClick="btnLogOut_Click">
+                Cerrar sesión
+                            </asp:LinkButton>
+                        </li>
+
+                        <% End If %>
                     </ul>
                 </div>
             </div>
         </nav>
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
@@ -61,8 +125,11 @@
                 <p>&copy; <%: DateTime.Now.Year %> - XTechnology</p>
             </footer>
         </div>
+
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </form>
+
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
