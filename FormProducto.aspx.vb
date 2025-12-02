@@ -5,6 +5,12 @@ Public Class FormProducto
     Private dbProducto As New dbProducto()
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim usuario = TryCast(Session("Usuario"), Usuario)
+        If usuario Is Nothing OrElse usuario.Rol <> 2 Then
+            Response.Redirect("~/Login.aspx")
+            Return
+        End If
+
         If Not IsPostBack Then
             CargarProductos()
         End If

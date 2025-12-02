@@ -6,11 +6,7 @@ Public Class Login
     Protected loginDb As New dbLogin()
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not IsPostBack Then
-            If Session("Usuario") IsNot Nothing Then
-                Response.Redirect("Default.aspx")
-            End If
-        End If
+
     End Sub
 
     Protected Sub btnIniciarSesion_Click(sender As Object, e As EventArgs) Handles btnIniciarSesion.Click
@@ -37,7 +33,6 @@ Public Class Login
             Else
                 Response.Redirect("Home.aspx")
             End If
-
         Else
             ShowSwalError(Me, "Credenciales incorrectas")
         End If

@@ -66,13 +66,14 @@
 
         <asp:Button ID="btnActualizar" runat="server"
             Visible="false"
-            CssClass="btn btn-success btn-hover-move"
+            CssClass="btn btn-primary btn-hover-move"
             Text="Actualizar"
             OnClick="btnActualizar_Click"
             ValidationGroup="vgProducto" />
 
         <asp:Button ID="btnCancelar" runat="server"
             Visible="false"
+            SkinID="DangerButton"
             CssClass="btn btn-danger btn-hover-move"
             Text="Cancelar"
             OnClick="btnCancelar_Click"
@@ -86,14 +87,17 @@
             DisplayMode="BulletList" />
     </div>
 
-    <asp:GridView ID="gvProducto" CssClass="table table-striped table-hover table-success"
+    <asp:GridView ID="gvProducto" CssClass="table table-striped table-hover shadow-sm"
+        BorderStyle="None"
+        CellPadding="6"
+        GridLines="None"
         runat="server"
         AutoGenerateColumns="False"
         DataKeyNames="IdProducto"
         OnRowDeleting="gvProducto_RowDeleting"
         OnSelectedIndexChanged="gvProducto_SelectedIndexChanged">
         <Columns>
-            <asp:CommandField ShowSelectButton="True" ControlStyle-CssClass="btn btn-success" />
+            <asp:CommandField ShowSelectButton="True" ControlStyle-CssClass="btn btn-primary" />
             <asp:BoundField DataField="IdProducto" HeaderText="ID" ReadOnly="True" />
             <asp:BoundField DataField="TipoProducto" HeaderText="Tipo" />
             <asp:BoundField DataField="Marca" HeaderText="Marca" />

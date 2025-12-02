@@ -15,6 +15,7 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <!-- Tema Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css" />
+    <link href="~/Content/theme.css" rel="stylesheet" />
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
@@ -105,9 +106,9 @@
                         <!-- Cerrar sesión: cualquier autenticado -->
                         <li class="nav-item">
                             <asp:LinkButton ID="btnLogOut" runat="server"
-                                CssClass="nav-link btn btn-danger btn-sm ms-2"
+                                CssClass="nav-link btn btn-danger ms-2"
                                 OnClick="btnLogOut_Click">
-                Cerrar sesión
+                                Cerrar sesión
                             </asp:LinkButton>
                         </li>
 
@@ -125,7 +126,6 @@
                 <p>&copy; <%: DateTime.Now.Year %> - XTechnology</p>
             </footer>
         </div>
-
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </form>
