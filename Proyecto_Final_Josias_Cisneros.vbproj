@@ -253,6 +253,7 @@
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="DB\dbCliente.vb" />
     <Compile Include="DB\dbLogin.vb" />
     <Compile Include="DB\dbProducto.vb" />
     <Compile Include="Default.aspx.vb">
@@ -293,6 +294,7 @@
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Models\Cliente.vb" />
     <Compile Include="Models\Producto.vb" />
     <Compile Include="Models\Usuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

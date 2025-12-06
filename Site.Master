@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - XTechnology</title>
+    <title><%: Page.Title %> - Tech</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -41,7 +41,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 <asp:HyperLink ID="hlBrand" runat="server" CssClass="navbar-brand"
-                    NavigateUrl="~/Home.aspx" Text="XTechnology" />
+                    NavigateUrl="~/Home.aspx" Text="Tech" />
 
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse" title="Toggle navigation"
@@ -123,7 +123,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - XTechnology</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Tech</p>
             </footer>
         </div>
 
