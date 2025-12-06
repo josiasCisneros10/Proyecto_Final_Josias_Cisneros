@@ -254,7 +254,9 @@
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="DB\dbCliente.vb" />
+    <Compile Include="DB\dbDetallePedido.vb" />
     <Compile Include="DB\dbLogin.vb" />
+    <Compile Include="DB\dbPedido.vb" />
     <Compile Include="DB\dbProducto.vb" />
     <Compile Include="Default.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
@@ -295,6 +297,8 @@
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Models\Cliente.vb" />
+    <Compile Include="Models\DetallePedido.vb" />
+    <Compile Include="Models\Pedido.vb" />
     <Compile Include="Models\Producto.vb" />
     <Compile Include="Models\Usuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -321,7 +325,7 @@
     </Compile>
     <Compile Include="FormPedido.aspx.vb">
       <DependentUpon>FormPedido.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Registro.aspx.designer.vb">
       <DependentUpon>Registro.aspx</DependentUpon>

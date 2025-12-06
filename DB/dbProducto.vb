@@ -10,6 +10,26 @@ Public Class dbProducto
         Return dbHelper.ExecuteQuery(sql)
     End Function
 
+    Public Function GetById(id As Integer) As Producto
+        Dim sql As String = "SELECT TOP 1 * FROM Producto WHERE IdProducto = @IdProducto"
+        Dim parametros As New List(Of SqlParameter) From {
+            dbHelper.CreateParameter("@IdProducto", id)
+        }
+        Dim dt = dbHelper.ExecuteQuery(sql, parametros)
+        If dt.Rows.Count = 0 Then Return Nothing
+
+        Dim row = dt.Rows(0)
+        Dim producto As New Producto() With {
+            .IdProducto = CInt(row("IdProducto")),
+            .TipoProducto = row("TipoProducto").ToString(),
+            .Marca = row("Marca").ToString(),
+            .Modelo = row("Modelo").ToString(),
+            .Precio = CDec(row("Precio")),
+            .Cantidad = CInt(row("Cantidad"))
+        }
+        Return Producto
+    End Function
+
     Public Function create(p As Producto) As Boolean
         Try
             Dim sql As String = "INSERT INTO Producto (TipoProducto, Marca, Modelo, Precio, Cantidad) 

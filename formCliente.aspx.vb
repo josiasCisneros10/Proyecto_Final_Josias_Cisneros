@@ -6,8 +6,8 @@ Public Class FormCliente
     Private dbCliente As New dbCliente()
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim u = TryCast(Session("Usuario"), Usuario)
-        If u Is Nothing OrElse u.Rol <> 2 Then
+        Dim usuario = TryCast(Session("Usuario"), Usuario)
+        If usuario Is Nothing OrElse usuario.Rol <> 2 Then
             Response.Redirect("~/Login.aspx")
             Return
         End If
@@ -23,13 +23,13 @@ Public Class FormCliente
 
     Protected Sub btnGuardar_Click(sender As Object, e As EventArgs)
         If Not Page.IsValid Then Return
-        Dim c As New Cliente With {
+        Dim cliente As New Cliente With {
             .Nombre = txtNombre.Text.Trim(),
             .Apellido = txtApellido.Text.Trim(),
             .Email = txtEmail.Text.Trim(),
             .Direccion = txtDireccion.Text.Trim()
         }
-        If dbCliente.Create(c) Then
+        If dbCliente.Create(cliente) Then
             ShowSwal(Me, "Cliente guardado correctamente")
             Limpiar()
             CargarClientes()
@@ -64,14 +64,14 @@ Public Class FormCliente
 
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs)
         If Not Page.IsValid Then Return
-        Dim c As New Cliente With {
+        Dim cliente As New Cliente With {
             .IdCliente = Convert.ToInt32(editando.Value),
             .Nombre = txtNombre.Text.Trim(),
             .Apellido = txtApellido.Text.Trim(),
             .Email = txtEmail.Text.Trim(),
             .Direccion = txtDireccion.Text.Trim()
         }
-        If dbCliente.Update(c) Then
+        If dbCliente.Update(cliente) Then
             ShowSwal(Me, "Cliente actualizado correctamente")
             Limpiar()
             CargarClientes()
