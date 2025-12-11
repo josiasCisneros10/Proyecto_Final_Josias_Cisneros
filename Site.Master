@@ -82,7 +82,7 @@
                         <!-- Carrito: solo usuario normal  -->
                         <li class="nav-item" id="liCarrito" runat="server">
                             <asp:HyperLink ID="hlCarrito" runat="server" CssClass="nav-link"
-                                NavigateUrl="~/Carrito.aspx" Text="Carrito de compras" />
+                                NavigateUrl="~/FormCarrito.aspx" Text="Carrito de compras" />
                         </li>
 
                         <!-- Productos: solo admin -->

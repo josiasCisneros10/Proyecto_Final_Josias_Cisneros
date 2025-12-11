@@ -12,5 +12,5 @@ Option Explicit On
 
 
 
-Partial Public Class Carrito
+Partial Public Class CarroCompras
 End Class

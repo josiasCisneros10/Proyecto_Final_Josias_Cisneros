@@ -127,7 +127,7 @@
     <Content Include="About.aspx" />
     <Content Include="Admin.aspx" />
     <Content Include="App_Themes\Proyecto\Proyecto.css" />
-    <Content Include="Carrito.aspx" />
+    <Content Include="FormCarrito.aspx" />
     <Content Include="Catalogo.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -232,11 +232,11 @@
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Carrito.aspx.designer.vb">
-      <DependentUpon>Carrito.aspx</DependentUpon>
+    <Compile Include="FormCarrito.aspx.designer.vb">
+      <DependentUpon>FormCarrito.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Carrito.aspx.vb">
-      <DependentUpon>Carrito.aspx</DependentUpon>
+    <Compile Include="FormCarrito.aspx.vb">
+      <DependentUpon>FormCarrito.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Catalogo.aspx.designer.vb">
@@ -296,6 +296,7 @@
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Models\Carrito.vb" />
     <Compile Include="Models\Cliente.vb" />
     <Compile Include="Models\DetallePedido.vb" />
     <Compile Include="Models\Pedido.vb" />
