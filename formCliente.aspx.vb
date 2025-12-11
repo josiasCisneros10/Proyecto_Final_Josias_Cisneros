@@ -30,18 +30,18 @@ Public Class FormCliente
             .Direccion = txtDireccion.Text.Trim()
         }
         If dbCliente.Create(cliente) Then
-            ShowSwal(Me, "Cliente guardado correctamente")
+            ShowSwal(Me, "Cliente guardado")
             Limpiar()
             CargarClientes()
         Else
-            ShowSwalError(Me, "Error al guardar el cliente (verifique si el email ya existe).")
+            ShowSwalError(Me, "Error al guardar el cliente")
         End If
     End Sub
 
     Protected Sub gvClientes_RowDeleting(sender As Object, e As GridViewDeleteEventArgs)
         Dim id As Integer = Convert.ToInt32(gvClientes.DataKeys(e.RowIndex).Value)
         If dbCliente.Delete(id) Then
-            ShowSwal(Me, "Cliente eliminado correctamente")
+            ShowSwal(Me, "Cliente eliminado")
         Else
             ShowSwalError(Me, "Error al eliminar el cliente")
         End If
@@ -72,11 +72,11 @@ Public Class FormCliente
             .Direccion = txtDireccion.Text.Trim()
         }
         If dbCliente.Update(cliente) Then
-            ShowSwal(Me, "Cliente actualizado correctamente")
+            ShowSwal(Me, "Cliente actualizado")
             Limpiar()
             CargarClientes()
         Else
-            ShowSwalError(Me, "Error al actualizar el cliente (verifique si el email ya existe).")
+            ShowSwalError(Me, "Error al actualizar el cliente")
         End If
     End Sub
 

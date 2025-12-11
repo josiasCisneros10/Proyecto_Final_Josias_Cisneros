@@ -30,9 +30,9 @@ Public Class FormProducto
             .Cantidad = Convert.ToInt32(txtCantidad.Text)
         }
         If dbProducto.create(producto) Then
-            ShowSwal(Me, "Producto guardado correctamente")
+            ShowSwal(Me, "Producto guardado")
         Else
-            ShowSwalError(Me, "Ocurrió un error al guardar")
+            ShowSwalError(Me, "Ocurrió un error al guardar el producto")
         End If
         Limpiar()
         CargarProductos()
@@ -44,7 +44,7 @@ Public Class FormProducto
         If dbProducto.delete(id) Then
             ShowSwal(Me, "Producto eliminado")
         Else
-            ShowSwalError(Me, "Error al eliminar")
+            ShowSwalError(Me, "Error al eliminar el producto")
         End If
         CargarProductos()
         e.Cancel = True
@@ -76,7 +76,7 @@ Public Class FormProducto
         If dbProducto.update(producto) Then
             ShowSwal(Me, "Producto actualizado")
         Else
-            ShowSwalError(Me, "Error al actualizar")
+            ShowSwalError(Me, "Error al actualizar el producto")
         End If
 
         Limpiar()

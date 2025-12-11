@@ -40,4 +40,25 @@ Public Class dbDetallePedido
             Return False
         End Try
     End Function
+
+    Public Function Update(det As DetallePedido) As Boolean
+        Try
+            Dim sql As String = "UPDATE DetallePedido 
+                                 SET IdProducto = @IdProducto,
+                                     Cantidad = @Cantidad,
+                                     PrecioUnitario = @PrecioUnitario
+                                 WHERE IdPedido = @IdPedido"
+
+            Dim parametros As New List(Of SqlClient.SqlParameter) From {
+                dbHelper.CreateParameter("@IdPedido", det.IdPedido),
+                dbHelper.CreateParameter("@IdProducto", det.IdProducto),
+                dbHelper.CreateParameter("@Cantidad", det.Cantidad),
+                dbHelper.CreateParameter("@PrecioUnitario", det.PrecioUnitario)
+            }
+            dbHelper.ExecuteNonQuery(sql, parametros)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 End Class

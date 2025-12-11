@@ -42,7 +42,7 @@ Public Class FormPedido
         ddlProducto.Items.Add(New ListItem("Seleccione un producto", ""))
 
         For Each row As DataRow In dt.Rows
-            Dim texto As String = $"{row("TipoProducto")} {row("Marca")} {row("Modelo")} - ₡{CDec(row("Precio")).ToString("N2")}"
+            Dim texto As String = $"{row("TipoProducto")} {row("Marca")} {row("Modelo")} - ${CDec(row("Precio")).ToString("N2")}"
             Dim valor As String = row("IdProducto").ToString()
             ddlProducto.Items.Add(New ListItem(texto, valor))
         Next
@@ -118,7 +118,7 @@ Public Class FormPedido
             Return
         End If
 
-        ShowSwal(Me, "Pedido guardado correctamente")
+        ShowSwal(Me, "Pedido guardado")
 
         CargarPedidos()
         Limpiar()
@@ -172,7 +172,6 @@ Public Class FormPedido
 
             txtCantidad.Text = cant
         Else
-
             ddlProducto.SelectedIndex = 0
             txtCantidad.Text = ""
         End If
@@ -184,22 +183,53 @@ Public Class FormPedido
             ShowSwalError(Me, "No hay un pedido seleccionado para actualizar.")
             Return
         End If
-
-        Dim totalDecimal As Decimal
-        If Not Decimal.TryParse(txtTotal.Value.Trim(), totalDecimal) Then
-            ShowSwalError(Me, "El total debe ser un número válido.")
+        If String.IsNullOrEmpty(ddlCliente.SelectedValue) Then
+            ShowSwalError(Me, "Debe seleccionar un cliente.")
+            Return
+        End If
+        If String.IsNullOrEmpty(ddlProducto.SelectedValue) Then
+            ShowSwalError(Me, "Debe seleccionar un producto.")
+            Return
+        End If
+        If String.IsNullOrEmpty(ddlEstado.SelectedValue) Then
+            ShowSwalError(Me, "Debe seleccionar un estado.")
             Return
         End If
 
-        Dim pedido As New Pedido With {
-            .IdPedido = CInt(editando.Value),
-            .IdCliente = CInt(ddlCliente.SelectedValue),
-            .Total = totalDecimal,
-            .Estado = ddlEstado.SelectedValue
-        }
+        Dim cantidad As Integer
+        If Not Integer.TryParse(txtCantidad.Text.Trim(), cantidad) OrElse cantidad <= 0 Then
+            ShowSwalError(Me, "La cantidad debe ser un número mayor a cero.")
+            Return
+        End If
 
+        Dim prod = dbProducto.GetById(CInt(ddlProducto.SelectedValue))
+        If prod Is Nothing Then
+            ShowSwalError(Me, "No se pudo obtener el producto seleccionado.")
+            Return
+        End If
+        Dim precioUnitario As Decimal = prod.Precio
+        Dim totalDecimal As Decimal = precioUnitario * cantidad
+
+        txtTotal.Value = totalDecimal.ToString("N2")
+
+        Dim pedido As New Pedido With {
+        .IdPedido = CInt(editando.Value),
+        .IdCliente = CInt(ddlCliente.SelectedValue),
+        .Total = totalDecimal,
+        .Estado = ddlEstado.SelectedValue
+    }
         If dbPedido.Update(pedido) Then
-            ShowSwal(Me, "Pedido actualizado correctamente")
+            Dim det As New DetallePedido With {
+            .IdPedido = CInt(editando.Value),
+            .IdProducto = CInt(ddlProducto.SelectedValue),
+            .Cantidad = cantidad,
+            .PrecioUnitario = precioUnitario
+        }
+            If Not dbDetalle.Update(det) Then
+                ShowSwalError(Me, "El pedido se actualizó, pero ocurrió un error al actualizar el detalle.")
+                Return
+            End If
+            ShowSwal(Me, "Pedido actualizado")
             Limpiar()
             CargarPedidos()
         Else
