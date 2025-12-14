@@ -4,7 +4,7 @@ Public Class DbHelper
     Private ReadOnly connectionString As String = ConfigurationManager.ConnectionStrings("Proyecto_FinalConnectionString").ConnectionString
 
     Public Sub New()
-        EnsureErrorLogTableExists() ' Asegúrate de que la tabla exista al crear una instancia.
+        'EnsureErrorLogTableExists() ' Asegúrate de que la tabla exista al crear una instancia.
     End Sub
 
     ' Método para obtener la conexión
@@ -90,6 +90,7 @@ Public Class DbHelper
     End Sub
 
     Private Sub LogErrorToFile(message As String)
+        EnsureErrorLogTableExists() ' Asegúrate de que la tabla exista al crear una instancia.
         Dim path As String = "C:\Logs\error_log.txt"
         IO.File.AppendAllText(path, $"{DateTime.Now}: {message}{Environment.NewLine}")
     End Sub
